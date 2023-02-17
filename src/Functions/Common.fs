@@ -5,7 +5,7 @@ open System.Collections.Generic
 open System.Net.Http
 
 [<AutoOpen>]
-module Common =    
+module Common =
     let private addRequestHeader (key: string) (value: string) (client: HttpClient): unit =
         client.DefaultRequestHeaders.Add(key, value)
     

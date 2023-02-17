@@ -1,7 +1,6 @@
 namespace Functions.Http
 
 open System.Net.Http
-open System.Net.Http.Headers
 open FSharp.Json
 open Functions.Connection
 open Functions.Common
