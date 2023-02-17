@@ -33,9 +33,7 @@ module Http =
             let result =
                 task {
                     addBearerIfMissing connection.Headers
-                    httpClient |> addRequestHeaders connection.Headers
-                    
-                    printfn $"{httpClient.DefaultRequestHeaders}"
+                    httpClient |> addRequestHeaders connection.Headers 
                     
                     let response = httpClient.PostAsync($"{connection.Url}/{urlSuffix}", content)
                     return! response
