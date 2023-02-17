@@ -1,5 +1,6 @@
 namespace Functions.Http
 
+open System.Net
 open System.Net.Http
 open FSharp.Json
 open Functions.Connection
@@ -9,7 +10,7 @@ open Functions.Common
 module Http =
     type FunctionsError = {
         message: string
-        statusCode: System.Net.HttpStatusCode
+        statusCode: HttpStatusCode
     }
     
     let private getResponseBody (responseMessage: HttpResponseMessage): string = 
@@ -39,9 +40,8 @@ module Http =
                     return! response
                 } |> Async.AwaitTask |> Async.RunSynchronously
             match result.StatusCode with
-            | System.Net.HttpStatusCode.OK ->
-                Result.Ok result
-            | statusCode                   ->
+            | HttpStatusCode.OK -> Result.Ok result
+            | statusCode        ->
                 Result.Error { message = result |> getResponseBody
                                statusCode = statusCode }
         with e ->
