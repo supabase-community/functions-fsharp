@@ -1,20 +1,19 @@
 namespace Functions.Connection
 
-open System.Collections.Generic
 open System.Net.Http
 
 [<AutoOpen>]
 module Connection =
     type FunctionsConnection = {
         Url: string
-        Headers: IDictionary<string, string>
+        Headers: Map<string, string>
         HttpClient: HttpClient
     }
     
     type FunctionsConnectionBuilder() =
         member _.Yield _ =
             {   Url = ""
-                Headers =  Dictionary()
+                Headers = Map []
                 HttpClient = new HttpClient() }
        
         [<CustomOperation("url")>]

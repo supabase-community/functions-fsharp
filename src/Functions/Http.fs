@@ -27,23 +27,28 @@ module Http =
         match response with
         | Ok _    -> Result.Ok ()
         | Error e -> Result.Error e
-        
-    let post (urlSuffix: string) (content: StringContent) (httpClient: HttpClient)
-             (connection: FunctionsConnection): Result<HttpResponseMessage, FunctionsError> =
+   
+    let private getRequestMessage (httpMethod: HttpMethod) (url: string) (urlSuffix: string): HttpRequestMessage =
+        new HttpRequestMessage(httpMethod, $"{url}/{urlSuffix}")
+    
+    let post (urlSuffix: string) (content: StringContent) (connection: FunctionsConnection): Result<HttpResponseMessage, FunctionsError> =
         try
+            let httpClient = connection.HttpClient
+            
+            let requestMessage = getRequestMessage HttpMethod.Post connection.Url urlSuffix
+            requestMessage.Content <- content
+            requestMessage.Headers |> addRequestHeaders (connection.Headers |> addBearerIfMissing)
+            
             let result =
                 task {
-                    addBearerIfMissing connection.Headers
-                    httpClient |> addRequestHeaders connection.Headers 
-                    
-                    let response = httpClient.PostAsync($"{connection.Url}/{urlSuffix}", content)
+                    let response = httpClient.SendAsync(requestMessage)                    
                     return! response
                 } |> Async.AwaitTask |> Async.RunSynchronously
             match result.StatusCode with
             | HttpStatusCode.OK -> Result.Ok result
             | statusCode        ->
-                Result.Error { message = result |> getResponseBody
+                Result.Error { message    = result |> getResponseBody
                                statusCode = statusCode }
         with e ->
-            Result.Error { message = e.ToString()
-                           statusCode = System.Net.HttpStatusCode.BadRequest }
+            Result.Error { message    = e.ToString()
+                           statusCode = HttpStatusCode.BadRequest }
