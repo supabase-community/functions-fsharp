@@ -8,16 +8,15 @@ open Functions.Http
 
 [<AutoOpen>]
 module Client =
-    let invokeRaw (name: string) (body: Map<string, obj> option) (connection: FunctionsConnection): Result<HttpResponseMessage, FunctionsError> =
-        let requestBody = 
-            match body with
-            | Some b -> b
-            | _      -> Map []
+    let invokeRaw (name: string) (body: Map<string, obj> option)
+                  (connection: FunctionsConnection): Result<HttpResponseMessage, FunctionsError> =
+        let requestBody = (Map[], body) ||> Option.defaultValue
         let content = new StringContent(Json.serialize(requestBody), Encoding.UTF8, "application/json")
         
         connection |> post name content
         
-    let rec invoke<'T> (name: string) (body: Map<string, obj> option) (connection: FunctionsConnection): Result<'T, FunctionsError> =
+    let rec invoke<'T> (name: string) (body: Map<string, obj> option)
+                       (connection: FunctionsConnection): Result<'T, FunctionsError> =
         let response = connection |> invokeRaw name body
         deserializeResponse<'T> response
     
