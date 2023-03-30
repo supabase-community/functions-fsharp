@@ -10,6 +10,12 @@ src/FunctionsExample/obj
 src/FunctionsExample/.idea
 src/FunctionsExample/*.DotSettings.user
 
+# FunctionsTest
+src/FunctionsTest/bin
+src/FunctionsTest/obj
+src/FunctionsTest/.idea
+src/FunctionsTest/*.DotSettings.user
+
 # vscode
 .vscode
 
