@@ -35,6 +35,7 @@ let mockHttpMessageHandlerWithBody (response: string) (requestBody: string) =
         
 let mockHttpMessageHandlerWithBodyFail (error: FunctionsError) (requestBody: string) =
         let mockHandler = Mock<HttpMessageHandler>(MockBehavior.Strict)
+        let statusCode = if error.statusCode.IsSome then error.statusCode.Value else HttpStatusCode.BadRequest
         mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync",
@@ -46,7 +47,7 @@ let mockHttpMessageHandlerWithBodyFail (error: FunctionsError) (requestBody: str
             )
             .ReturnsAsync(
                 new HttpResponseMessage(
-                    error.statusCode,
+                    statusCode,
                     Content = new StringContent(error.message, Encoding.UTF8, "application/json")
                 )
             )
@@ -100,7 +101,7 @@ module InvokeTests =
     [<Fact>]
     let ``should return an error when API request fails`` () =
         // Arrange
-        let expectedError = { message = "Bad Request"; statusCode = HttpStatusCode.BadRequest }
+        let expectedError = { message = "Bad Request"; statusCode = Some HttpStatusCode.BadRequest }
         let requestBody = """{"name:"function-name"}"""
             
         let mockHandler = mockHttpMessageHandlerWithBodyFail expectedError requestBody  
