@@ -10,7 +10,7 @@ open Functions.Common
 module Http =
     type FunctionsError = {
         message: string
-        statusCode: HttpStatusCode
+        statusCode: HttpStatusCode option
     }
     
     let private getResponseBody (responseMessage: HttpResponseMessage): string = 
@@ -48,7 +48,7 @@ module Http =
             | HttpStatusCode.OK -> Result.Ok result
             | statusCode        ->
                 Result.Error { message    = result |> getResponseBody
-                               statusCode = statusCode }
+                               statusCode = Some statusCode }
         with e ->
             Result.Error { message    = e.ToString()
-                           statusCode = HttpStatusCode.BadRequest }
+                           statusCode = None }
