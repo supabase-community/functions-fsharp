@@ -1,4 +1,4 @@
-namespace Functions.Common
+namespace Functions
 
 open System
 open System.Net.Http.Headers
