@@ -1,4 +1,4 @@
-namespace Functions.Http
+namespace Functions
 
 open System.Net
 open System.Net.Http

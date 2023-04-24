@@ -1,4 +1,4 @@
-namespace Functions.Connection
+namespace Functions
 
 open System.Net.Http
 
