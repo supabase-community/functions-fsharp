@@ -21,13 +21,13 @@ module Http =
         |> Async.AwaitTask
         |> Async.RunSynchronously        
             
-    /// Deserialize given response
+    /// Deserializes given response
     let deserializeResponse<'T> (response: Result<HttpResponseMessage, FunctionsError>): Result<'T, FunctionsError> =
         match response with
         | Ok r    -> Result.Ok (Json.deserialize<'T> (r |> getResponseBody))
         | Error e -> Result.Error e
         
-    /// Deserialize empty (unit) response
+    /// Deserializes empty (unit) response
     let deserializeEmptyResponse (response: Result<HttpResponseMessage, FunctionsError>): Result<unit, FunctionsError> =
         match response with
         | Ok _    -> Result.Ok ()
