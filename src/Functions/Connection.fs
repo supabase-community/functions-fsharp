@@ -2,8 +2,10 @@ namespace Functions
 
 open System.Net.Http
 
+/// Contains CE for creating connection
 [<AutoOpen>]
 module Connection =
+    /// Represents base connection
     type FunctionsConnection = {
         Url: string
         Headers: Map<string, string>
