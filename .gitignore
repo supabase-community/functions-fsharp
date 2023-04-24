@@ -29,4 +29,7 @@ src/FunctionsTest/*.DotSettings.user
 # MacOS
 .DS_Store
 
+# docs
+.fsdocs
+
 *.DotSettings.user

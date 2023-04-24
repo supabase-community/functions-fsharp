@@ -6,8 +6,10 @@ open FSharp.Json
 open Functions.Connection
 open Functions.Http
 
+/// Contains all functions needed for invoking [Supabase function](https://supabase.com/docs/guides/functions)
 [<AutoOpen>]
 module Client =
+    /// Invokes edge function with given name and optional body and returns result in 
     let invokeRaw (name: string) (body: Map<string, obj> option)
                   (connection: FunctionsConnection): Result<HttpResponseMessage, FunctionsError> =
         let requestBody = (Map[], body) ||> Option.defaultValue
@@ -15,11 +17,13 @@ module Client =
         
         post name content connection
         
+    /// Invokes edge function with given name and optional body and returns result deserialized to given `'T` type
     let rec invoke<'T> (name: string) (body: Map<string, obj> option)
                        (connection: FunctionsConnection): Result<'T, FunctionsError> =
         let response = invokeRaw name body connection
         deserializeResponse<'T> response
     
+    /// Updates Bearer token in connection Header and returns new FunctionsConnection
     let updateBearer (bearer: string) (connection: FunctionsConnection): FunctionsConnection =
         let formattedBearer = $"Bearer {bearer}"
         let headers =
