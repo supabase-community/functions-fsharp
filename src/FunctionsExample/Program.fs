@@ -1,28 +1,17 @@
-﻿open System.Collections.Generic
-open System.Net.Http
-open Functions.Connection
+﻿open Functions.Connection
 open Functions.Client
 
 let apiKey = "<api-key>"
 let connection = functionsConnection {
     url "https://<project-id>.functions.supabase.co"
-    headers (Dictionary(
-        dict [
-            ("apiKey", apiKey)
-            // ("Authorization", $"Bearer {<bearer-token>}")
-            // There is no need to specify Bearer token if it is same as apiKey
-            // the library is going to handle it for you
-            ]
-        )
-    )
-    httpClient (new HttpClient())
+    headers (Map [ ("apiKey", apiKey) ] )
 }
 
-type TestResponse = {
+type Response = {
     message: string
 }
 
-let result = connection |> invoke<TestResponse> "test" (Some (Map ["name", "Your beautiful name"]))
+let result = connection |> invoke<Response> "test" (Some (Map ["name", "your-name"]))
 
 match result with
 | Ok    r -> printfn $"{r}"
