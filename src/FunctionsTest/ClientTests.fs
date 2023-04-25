@@ -6,8 +6,6 @@ open System.Text
 open System.Threading
 open System.Threading.Tasks
 open Functions
-open Functions.Connection
-open Functions.Http
 open FsUnit.Xunit
 open Moq
 open Moq.Protected
@@ -63,7 +61,7 @@ module InvokeTests =
     [<Fact>]
     let ``should return a given type <'T> of response when success`` () =
         // Arrange
-        let expectedResponse = { message = "function invoked successfully" }
+        let expectedResponse = { message = "function invoked successfull" }
         let response ="""{"message":"function invoked successfully"}"""
         let requestBody = """{"name:"function-name"}"""
             
