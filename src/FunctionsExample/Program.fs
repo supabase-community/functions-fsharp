@@ -11,7 +11,9 @@ type Response = {
     message: string
 }
 
-let result = connection |> invoke<Response> "test" (Some (Map ["name", "your-name"]))
+let result = connection
+             |> invoke<Response> "test" (Some (Map ["name", "your-name"]))
+             |> Async.RunSynchronously
 
 match result with
 | Ok    r -> printfn $"{r}"
