@@ -38,24 +38,20 @@ module Http =
         new HttpRequestMessage(httpMethod, $"{url}/{urlSuffix}")
     
     /// Performs http POST request
-    let post (urlSuffix: string) (content: StringContent) (connection: FunctionsConnection): Result<HttpResponseMessage, FunctionsError> =
-        try
-            let httpClient = connection.HttpClient
-            
-            let requestMessage = getRequestMessage HttpMethod.Post connection.Url urlSuffix
-            requestMessage.Content <- content
-            requestMessage.Headers |> addRequestHeaders (connection.Headers |> addBearerIfMissing)
-            
-            let result =
-                task {
-                    let response = httpClient.SendAsync(requestMessage)                    
-                    return! response
-                } |> Async.AwaitTask |> Async.RunSynchronously
-            match result.StatusCode with
-            | HttpStatusCode.OK -> Result.Ok result
-            | statusCode        ->
-                Result.Error { message    = result |> getResponseBody
-                               statusCode = Some statusCode }
-        with e ->
-            Result.Error { message    = e.ToString()
-                           statusCode = None }
+    let post (urlSuffix: string) (content: StringContent)
+             (connection: FunctionsConnection): Async<Result<HttpResponseMessage, FunctionsError>> =
+        async {
+            try
+                let httpClient = connection.HttpClient
+                
+                let requestMessage = getRequestMessage HttpMethod.Post connection.Url urlSuffix
+                requestMessage.Content <- content
+                requestMessage.Headers |> addRequestHeaders (connection.Headers |> addBearerIfMissing)
+                
+                let! response = httpClient.SendAsync(requestMessage) |> Async.AwaitTask                    
+                    
+                match response.StatusCode with
+                | HttpStatusCode.OK -> return Result.Ok response
+                | statusCode -> return Result.Error { message = getResponseBody response ; statusCode = Some statusCode }
+            with e -> return Result.Error { message = e.ToString() ; statusCode = None }
+        }
