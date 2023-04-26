@@ -9,6 +9,7 @@ open Moq
 open Moq.Protected
 open Xunit
 open Functions
+open FunctionsTest
 
 [<Collection("invoke tests")>]
 module InvokeTests =
@@ -32,6 +33,7 @@ module InvokeTests =
         let result =
             connection
             |> Client.invoke<CustomResponse> "function-name" (Some (Map<string, obj>["name", "function-name"]))
+            |> Async.RunSynchronously
 
         // Assert
         match result with
@@ -69,6 +71,7 @@ module InvokeTests =
         let result =
             connection
             |> Client.invoke<CustomResponse> "function-name" (Some (Map<string, obj>["name", "function-name"]))
+            |> Async.RunSynchronously
 
         // Assert
         match result with

@@ -1,4 +1,4 @@
-namespace Functions
+namespace FunctionsTest
 
 open System.Net
 open System.Net.Http
@@ -7,6 +7,7 @@ open System.Threading
 open System.Threading.Tasks
 open Moq
 open Moq.Protected
+open Functions
 
 
 [<AutoOpen>]
