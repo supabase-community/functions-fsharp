@@ -29,9 +29,7 @@ module Client =
     let updateBearer (bearer: string) (connection: FunctionsConnection): FunctionsConnection =
         let formattedBearer = $"Bearer {bearer}"
         let headers =
-            match connection.Headers.ContainsKey "Authorization" with
-            | true  ->
-                connection.Headers |> Seq.map (fun (KeyValue (k, v)) -> if k = "Authorization" then (k, formattedBearer) else (k, v)) |> Map
-            | false ->
-                Map.add "Authorization" formattedBearer connection.Headers
+            connection.Headers |> Map.change "Authorization" (fun authorization ->
+                match authorization with | Some _ | None -> Some formattedBearer
+            )
         { connection with Headers = headers }
