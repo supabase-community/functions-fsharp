@@ -9,6 +9,7 @@ open Moq
 open Moq.Protected
 open Xunit
 open Functions
+open Functions.Http
 open FunctionsTest
 
 [<Collection("invoke tests")>]
