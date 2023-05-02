@@ -4,7 +4,6 @@ open System
 open System.Net.Http.Headers
 
 /// Contains helper functions for another modules
-[<AutoOpen>]
 module Common =
     /// Adds HttpRequestHeaders to given headers Map
     let internal addRequestHeaders (headers: Map<string, string>) (httpRequestHeaders: HttpRequestHeaders): unit =
