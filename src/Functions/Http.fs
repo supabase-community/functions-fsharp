@@ -7,7 +7,6 @@ open Functions.Connection
 open Functions.Common
 
 /// Contains functions for performing http request and serialization/deserialization of data
-[<AutoOpen>]
 module Http =
     /// Represents error base error type for this library
     type FunctionsError = {
