@@ -22,10 +22,12 @@ module Http =
         |> Async.RunSynchronously        
             
     /// Deserializes given response
-    let deserializeResponse<'T> (response: Result<HttpResponseMessage, FunctionsError>): Result<'T, FunctionsError> =
-        match response with
-        | Ok r    -> Result.Ok (Json.deserialize<'T> (r |> getResponseBody))
-        | Error e -> Result.Error e
+    let deserializeResponse<'T> (response: Result<HttpResponseMessage, FunctionsError>): Result<'T, FunctionsError> =        
+        try
+            match response with
+            | Ok r    -> Result.Ok (Json.deserialize<'T> (getResponseBody r))
+            | Error e -> Result.Error e
+        with e -> Error { message = e.Message ; statusCode = None }
         
     /// Deserializes empty (unit) response
     let deserializeEmptyResponse (response: Result<HttpResponseMessage, FunctionsError>): Result<unit, FunctionsError> =
