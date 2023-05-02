@@ -24,12 +24,3 @@ module Client =
             let! response = invokeRaw name body connection
             return deserializeResponse<'T> response
         }
-    
-    /// Updates Bearer token in connection Header and returns new FunctionsConnection
-    let updateBearer (bearer: string) (connection: FunctionsConnection): FunctionsConnection =
-        let formattedBearer = $"Bearer {bearer}"
-        let headers =
-            connection.Headers |> Map.change "Authorization" (fun authorization ->
-                match authorization with | Some _ | None -> Some formattedBearer
-            )
-        { connection with Headers = headers }

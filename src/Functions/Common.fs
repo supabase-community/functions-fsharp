@@ -20,3 +20,12 @@ module Common =
         match headers.ContainsKey "Authorization" with
         | true  -> headers
         | false -> headers |> Map.add "Authorization" $"Bearer {apiKey}"
+        
+    /// Updates Bearer token in connection Header and returns new FunctionsConnection
+    let updateBearer (bearer: string) (connection: FunctionsConnection): FunctionsConnection =
+        let formattedBearer = $"Bearer {bearer}"
+        let headers =
+            connection.Headers |> Map.change "Authorization" (fun authorization ->
+                match authorization with | Some _ | None -> Some formattedBearer
+            )
+        { connection with Headers = headers }
