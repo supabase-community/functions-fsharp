@@ -17,8 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Common.fs" />
     <Compile Include="Connection.fs" />
+    <Compile Include="Common.fs" />
     <Compile Include="Http.fs" />
     <Compile Include="Client.fs" />
   </ItemGroup>
