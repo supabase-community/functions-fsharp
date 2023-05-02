@@ -7,8 +7,7 @@ open System.Threading
 open System.Threading.Tasks
 open Moq
 open Moq.Protected
-open Functions
-
+open Functions.Http
 
 [<AutoOpen>]
 module Helper =
