@@ -2,7 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <PackageId>functions-fsharp</PackageId>
+    <Authors>Samuel Dubovec</Authors>
+    <Copyright>MIT</Copyright>
     <ReleaseVersion>0.0.1</ReleaseVersion>
+    <PackageVersion>0.0.1</PackageVersion>
+    
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Owners>Samuel Dubovec</Owners>
+    <Title>functions-fsharp</Title>
+    <Summary>A F# client for Supabase Functions</Summary>
+    <Description>A F# client for Supabase Functions</Description>
+    <PackageIconUrl>https://avatars.githubusercontent.com/u/54469796?s=200&amp;v=4</PackageIconUrl>
+    <PackageTags>supabase, functions, fsharp</PackageTags>
+    <PackageReadmeFile>../../README.md</PackageReadmeFile>
     
     <!-- FSharp.Formatting (fsdocs) start -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
