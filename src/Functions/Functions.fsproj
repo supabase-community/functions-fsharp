@@ -7,16 +7,16 @@
     <Copyright>MIT</Copyright>
     <ReleaseVersion>0.0.1</ReleaseVersion>
     <PackageVersion>0.0.1</PackageVersion>
-    
+
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Owners>Samuel Dubovec</Owners>
     <Title>functions-fsharp</Title>
     <Summary>A F# client for Supabase Functions</Summary>
     <Description>A F# client for Supabase Functions</Description>
-    <PackageIconUrl>https://avatars.githubusercontent.com/u/54469796?s=200&amp;v=4</PackageIconUrl>
+    <PackageIcon>logo.jpeg</PackageIcon>
     <PackageTags>supabase, functions, fsharp</PackageTags>
-    <PackageReadmeFile>../../README.md</PackageReadmeFile>
-    
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
     <!-- FSharp.Formatting (fsdocs) start -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Samuel Dubovec</Authors>
@@ -39,6 +39,11 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Json" Version="0.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\content\img\logo.jpeg" Pack="true" Link="logo.jpeg" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" Link="README.md" PackagePath="\" />
   </ItemGroup>
 
 </Project>
