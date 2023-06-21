@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>functions-fsharp</PackageId>
     <Authors>Samuel Dubovec</Authors>
     <Copyright>MIT</Copyright>
@@ -9,7 +11,7 @@
     <PackageVersion>0.0.1</PackageVersion>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Owners>Samuel Dubovec</Owners>
+    <Owners>Samuel Dubovec &lt;samodubovec@gmail.com&gt;</Owners>
     <Title>functions-fsharp</Title>
     <Summary>A F# client for Supabase Functions</Summary>
     <Description>A F# client for Supabase Functions</Description>
@@ -19,7 +21,7 @@
 
     <!-- FSharp.Formatting (fsdocs) start -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Authors>Samuel Dubovec</Authors>
+    <Authors>Samuel Dubovec &lt;samodubovec@gmail.com&gt;</Authors>
     <FsDocsLicenseLink>https://github.com/supabase-community/functions-fsharp/blob/develop/LICENSE</FsDocsLicenseLink>
     <FsDocsLogoSource>../content/img/logo.jpeg</FsDocsLogoSource>
     <PackageProjectUrl>..</PackageProjectUrl>
@@ -28,6 +30,11 @@
     <RepositoryBranch>develop</RepositoryBranch>
     <UsesMarkdownComments>true</UsesMarkdownComments>
     <!-- FSharp.Formatting (fsdocs) end -->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
