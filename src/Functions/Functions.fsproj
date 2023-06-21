@@ -27,6 +27,7 @@
     <PackageProjectUrl>..</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/supabase-community/functions-fsharp</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/supabase-community/functions-fsharp</PackageProjectUrl>
     <RepositoryBranch>develop</RepositoryBranch>
     <UsesMarkdownComments>true</UsesMarkdownComments>
     <!-- FSharp.Formatting (fsdocs) end -->
